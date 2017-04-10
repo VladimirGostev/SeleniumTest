@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 
-ы
+
 /**
  * Created by VGostev on 03.04.2017.
  */
@@ -16,8 +16,8 @@ public class ChromSetting {
     protected String cityMoscow = "москва";
     protected String weaterEqualsPenza = "Прогноз погоды в Пензе с точностью до района — рассчитан с помощью технологии Meteum";
     protected String weaterEqualsMoscow = "Прогноз погоды в Москве с точностью до района — рассчитан с помощью технологии Meteum";
-    protected String emailLogin = "****";
-    protected String paswordLogin = "------";
+    protected String emailLogin = "gostev.test-selenium@yandex.ru";
+    protected String paswordLogin = "Ntcn14as12";
     protected String timeLocator = ".current-weather__today";
     @Before
     public void YandexSearch(){

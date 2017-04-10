@@ -1,6 +1,5 @@
 package Test.Yandex;
 
-
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -22,15 +21,16 @@ public class YandexPage {
     By weatherMontLocator = By.xpath("//ul/*/a[@class='link forecast-brief__item-description forecast-brief__item-description_link_yes t t_c_11']");
     By paswordLocator = By.xpath("//input[@placeholder='Пароль']");
     By entranceButton = By.xpath("//div/*/button[@class='button button_theme_action button_size_m i-bem button_js_inited']");
-    String inputSearchWeatherLocator = "#header2input";
-    String newCityWeatherLinkLocator = "//ul/*/a[@class='link place-list__item-name']";
+    By equalsUserNameLocator = By.xpath("*//div/*/span[@class='user__name i-bem']");
+    By inputSearchWeatherLocator = By.cssSelector("#header2input");
+    By newCityWeatherLinkLocator = By.xpath("//ul/*/a[@class='link place-list__item-name']");
+    By entranceLocator = By.xpath("//button[@title='Войти']");
+    By emailLocator = By.xpath("//input[@placeholder='Логин']");
+    By mapYandexLocator = By.xpath("//div/*/a[@href='https://yandex.ru/maps/?utm_source=geoblock_maps_penza']");
+    By yandexMainPageLocator = By.xpath("//div/*/img[@class='image']");
+    By mapMoveLocator = By.xpath("//div/*/ymaps[@class='ymaps-2-1-48-map']");
+    By myLocationLocator = By.cssSelector("#my-location");
     String textWeaterLocator = ".copyright-tech";
-    String entranceLocator = "//button[@title='Войти']";
-    String emailLocator = "//input[@placeholder='Логин']";
-    String mapYandexLocator = "//div/*/a[@href='https://yandex.ru/maps/?utm_source=geoblock_maps_penza']";
-    String yandexMainPageLocator = "//div/*/img[@class='image']";
-    String mapMove = "//div/*/ymaps[@class='ymaps-2-1-48-map']";
-    String myLocation = "#my-location";
 
     //Метод для перехода на страничку погоды яндекс
     public void weatherYandex(){
@@ -43,8 +43,8 @@ public class YandexPage {
     }
     //Метод для перехода на страничку погоды другого города в зависимости от переданного параметра
     public void weaterSearcMoscow(String city){
-        driver.findElement(By.cssSelector(inputSearchWeatherLocator)).sendKeys(city, Keys.ENTER);
-        WebElement element = driver.findElement(By.xpath(newCityWeatherLinkLocator));
+        driver.findElement(inputSearchWeatherLocator).sendKeys(city, Keys.ENTER);
+        WebElement element = driver.findElement(newCityWeatherLinkLocator);
         element.click();
     }
     /*Метод для проверки что мы находимся на страничке погоды нужного нам Города
@@ -55,7 +55,7 @@ public class YandexPage {
         System.out.println(weaterEqualsPenzaLocator);
     }
 
-   //Метод для перехода на страничку погоды для 30-ти дней
+    //Метод для перехода на страничку погоды для 30-ти дней
     public void cheakWeaterMont(){
         driver.findElement(weatherMontLocator).click();
 
@@ -63,14 +63,14 @@ public class YandexPage {
     //Метод для перехода нас траничку погоды для текущей локации пользывателя
     public void returnMyLocationWeather(){
         WebElement myLocationButton = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(myLocation)));
+                .until(ExpectedConditions.presenceOfElementLocated(myLocationLocator));
         myLocationButton.click();
     }
     //Метод для открытия всплывающего окна для входа в личный кабинет
     public void clickEntrance(){
         //String parentHandle = driver.getWindowHandle();
         WebElement acauntButton = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(entranceLocator)));
+                .until(ExpectedConditions.presenceOfElementLocated(entranceLocator));
         acauntButton.click();
        /* try {
             //Switch to the Help Popup Browser Window
@@ -85,7 +85,7 @@ public class YandexPage {
     public void inputEmail(String email) {
 
         WebElement login = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(emailLocator)));
+                .until(ExpectedConditions.presenceOfElementLocated(emailLocator));
         login.click();
         login.click();
         login.sendKeys(email);
@@ -110,21 +110,26 @@ public class YandexPage {
         inputEmail(email);
         inputPasword(pasword);
         entrance();
+        assertUserName();
         System.out.println("Вы вошли под своей учетной записью");
+    }
+    //Метод для проверки имени пользывателя
+    public void assertUserName(){
+        Assert.assertEquals("Eror user name", driver.findElement(equalsUserNameLocator).getText(),"gostev-test-sel…");
     }
     //Метод для возврата к стартовой странице Яндекс
     public void returnMainYandexPage(){
         WebElement returnMainYandex = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(yandexMainPageLocator)));
+                .until(ExpectedConditions.presenceOfElementLocated(yandexMainPageLocator));
         returnMainYandex.click();
     }
 
     public void actionMap(){
         WebElement mapYandex = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(mapYandexLocator)));
+                .until(ExpectedConditions.presenceOfElementLocated(mapYandexLocator));
         mapYandex.click();
         WebElement mapYandexMove = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(mapMove)));
+                .until(ExpectedConditions.presenceOfElementLocated(mapMoveLocator));
         Actions action = new Actions(driver);
         /*action.clickAndHold(mapYandexMove);
         action.moveToElement(mapYandexMove, 1000, 2000);*/
