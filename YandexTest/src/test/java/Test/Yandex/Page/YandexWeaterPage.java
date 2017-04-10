@@ -1,24 +1,24 @@
-package Test.Yandex;
+package Test.Yandex.Page;
 
 import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 /**
- * Created by VGostev on 03.04.2017.
+ * Created by vgostev on 10.04.2017.
  */
-public class YandexPage {
+public class YandexWeaterPage {
     private WebDriver driver;
 
-    public YandexPage(WebDriver driver) {
+    public YandexWeaterPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    By weatherYandexLocator = By.xpath(".//*[@id='wd-_weather']/div/h1/a[1]" );
-    By weatherMontLocator = By.xpath("//ul/*/a[@class='link forecast-brief__item-description forecast-brief__item-description_link_yes t t_c_11']");
+    By weatherMontLocator = By.xpath("//ul/*/a[@class='link forecast-brief__item-description forecast-brief__item-description_link_yes t t_c_10']");
     By paswordLocator = By.xpath("//input[@placeholder='Пароль']");
     By entranceButton = By.xpath("//div/*/button[@class='button button_theme_action button_size_m i-bem button_js_inited']");
     By equalsUserNameLocator = By.xpath("*//div/*/span[@class='user__name i-bem']");
@@ -26,17 +26,10 @@ public class YandexPage {
     By newCityWeatherLinkLocator = By.xpath("//ul/*/a[@class='link place-list__item-name']");
     By entranceLocator = By.xpath("//button[@title='Войти']");
     By emailLocator = By.xpath("//input[@placeholder='Логин']");
-    By mapYandexLocator = By.xpath("//div/*/a[@href='https://yandex.ru/maps/?utm_source=geoblock_maps_penza']");
     By yandexMainPageLocator = By.xpath("//div/*/img[@class='image']");
-    By mapMoveLocator = By.xpath("//div/*/ymaps[@class='ymaps-2-1-48-map']");
     By myLocationLocator = By.cssSelector("#my-location");
     String textWeaterLocator = ".copyright-tech";
 
-    //Метод для перехода на страничку погоды яндекс
-    public void weatherYandex(){
-        driver.findElement(weatherYandexLocator).click();
-    }
-    //Метод для вытаскивания текста из веб элемента
     public String getTextSelector(String selectorName){
         String textSelector =  driver.findElement(By.cssSelector(selectorName)).getText();
         return textSelector;
@@ -102,7 +95,6 @@ public class YandexPage {
     //Нажатие кнопки Вход на форме всплывающего окна для входа в ЛК
     public void entrance(){
         driver.findElement(entranceButton).click();
-
     }
     //Метод объединящие все действия для входа в ЛК
     public void entanceLoginYandex(String email, String pasword) {
@@ -122,18 +114,6 @@ public class YandexPage {
         WebElement returnMainYandex = (new WebDriverWait(driver,10))
                 .until(ExpectedConditions.presenceOfElementLocated(yandexMainPageLocator));
         returnMainYandex.click();
-    }
-
-    public void actionMap(){
-        WebElement mapYandex = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(mapYandexLocator));
-        mapYandex.click();
-        WebElement mapYandexMove = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(mapMoveLocator));
-        Actions action = new Actions(driver);
-        /*action.clickAndHold(mapYandexMove);
-        action.moveToElement(mapYandexMove, 1000, 2000);*/
-        action.dragAndDropBy(mapYandexMove, 1000, 2000);
     }
 
 }

@@ -1,4 +1,4 @@
-package Test.Yandex;
+package Test.Yandex.SettingPage;
 
 import org.junit.After;
 import org.junit.Before;
