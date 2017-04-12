@@ -23,7 +23,7 @@ public class ChromSetting {
     public void yandexSearch(){
         driver.get("https://yandex.ru/");
         driver.manage().window().maximize();
-        //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
     @After
     public void driverQuit(){

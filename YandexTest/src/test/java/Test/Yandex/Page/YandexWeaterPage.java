@@ -23,14 +23,14 @@ public class YandexWeaterPage {
     }
 
     By clickWeatherMontLink = By.xpath("//*[@class='forecast-brief__item forecast-brief__item_tile']");
-    By paswordLocator = By.xpath("//*[@name='passwd']");
     By entranceButtonPopWindows = By.xpath("//button[@class='button button_theme_action button_size_m i-bem button_js_inited']");//кнопка войти на форме popUP
     By currentUserName = By.xpath("//span[@class='user__name i-bem']");
-    By inputSearchWeatherLocator = By.cssSelector("#header2input");
-    By newCityWeatherLinkLocator = By.xpath("//ul/*/a[@class='link place-list__item-name']");
-    By buttonEntrance = By.xpath("//button[@title='Войти']");//кнопка войти на основной форме
-    By emailLocator = By.xpath("//input[@placeholder='Логин']");//поле для ввода логина
-    By yandexMainPageLocator = By.xpath("//div/*/img[@class='image']");
+    By inputSearchCityWeather = By.cssSelector("#header2input");
+    By newCityWeatherLink = By.xpath("//a[@class='link place-list__item-name'][text()='Москва']");
+    By buttonEntranceMain = By.xpath("//button[@title='Войти']");
+    By inputEmail = By.xpath("//input[@placeholder='Логин']");
+    By inputPasword = By.xpath("//input[@name='passwd']");
+    By headYandexMainPage = By.xpath("//a[@class='link i-bem']");
     By myLocationBuutton = By.xpath("//button[@id='my-location']");
     By currentRegion = By.xpath("//h1[@class='title title_level_1']");
     String textWeaterLocator = ".copyright-tech";
@@ -39,8 +39,8 @@ public class YandexWeaterPage {
         return  driver.findElement(By.cssSelector(selectorName)).getText();
     }*/
     public void goToWeaterMoscow(String city){
-        wait.until(ExpectedConditions.presenceOfElementLocated(inputSearchWeatherLocator)).sendKeys(city, Keys.ENTER);
-        wait.until(ExpectedConditions.presenceOfElementLocated(newCityWeatherLinkLocator)).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(inputSearchCityWeather)).sendKeys(city, Keys.ENTER);
+        wait.until(ExpectedConditions.presenceOfElementLocated(newCityWeatherLink)).click();
     }
     public String getCurrentRegion(){
         System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(currentRegion)).getText());
@@ -56,16 +56,17 @@ public class YandexWeaterPage {
 
     public void goToMyLocationWeather(){
         wait.until(ExpectedConditions.presenceOfElementLocated(myLocationBuutton)).click();
+        System.out.println("Вы перешли на страницу погоды, вашего текущего местоположения");
     }
 
     public void clickButtonEntrance(){
-        wait.until(ExpectedConditions.presenceOfElementLocated(buttonEntrance)).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(buttonEntranceMain)).click();
     }
     public void inputEmail(String email) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(emailLocator)).sendKeys(email);
+        wait.until(ExpectedConditions.presenceOfElementLocated(inputEmail)).sendKeys(email);
     }
     public void inputPasword(String psw){
-        wait.until(ExpectedConditions.presenceOfElementLocated(paswordLocator)).sendKeys(psw);
+        wait.until(ExpectedConditions.presenceOfElementLocated(inputPasword)).sendKeys(psw);
     }
     public void clickLogIn(){
         wait.until(ExpectedConditions.presenceOfElementLocated(entranceButtonPopWindows)).click();
@@ -84,7 +85,7 @@ public class YandexWeaterPage {
         System.out.println("User name: " + driver.findElement(currentUserName).getText());
     }
     public YandexMainPage returnToMainYandexPage(){
-        wait.until(ExpectedConditions.presenceOfElementLocated(yandexMainPageLocator)).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(headYandexMainPage)).click();
         return new YandexMainPage(driver);
     }
 }
