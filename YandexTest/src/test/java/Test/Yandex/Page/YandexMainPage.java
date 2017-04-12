@@ -11,31 +11,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class YandexMainPage {
     private WebDriver driver;
+    private WebDriverWait wait;
 
     public YandexMainPage(WebDriver driver) {
         this.driver = driver;
+        wait = (new WebDriverWait(driver,10));
     }
     By weatherYandexLocator = By.xpath(".//*[@id='wd-_weather']/div/h1/a[1]" );
     By mapYandexLocator = By.xpath("//div/*/a[@href='https://yandex.ru/maps/?utm_source=geoblock_maps_penza']");
     By mapMoveLocator = By.xpath("//div/*/ymaps[@class='ymaps-2-1-48-map']");
 
-    //Метод для перехода на страничку погоды яндекс
-    public YandexWeaterPage weatherYandex(){
+
+    public YandexWeaterPage openWeaterPage(){
         driver.findElement(weatherYandexLocator).click();
         return new YandexWeaterPage(driver);
     }
-
-    //Метод для вытаскивания текста из веб элемента
     public void actionMap(){
-        WebElement mapYandex = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(mapYandexLocator));
-        mapYandex.click();
-        WebElement mapYandexMove = (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.presenceOfElementLocated(mapMoveLocator));
         Actions action = new Actions(driver);
-        /*action.clickAndHold(mapYandexMove);
-        action.moveToElement(mapYandexMove, 1000, 2000);*/
-        action.dragAndDropBy(mapYandexMove, 1000, 2000);
+        action.dragAndDrop(driver.findElement(By.xpath(".//*[@id='wd-_weather']/div/h1/a[1]")),driver.findElement(By.id("id=text"))).sendKeys(Keys.ENTER);
     }
 
 }
