@@ -29,7 +29,6 @@ public class ChromSetting {
     public void driverQuit(){
         driver.close();
     }
-
 }
 
 
