@@ -17,11 +17,10 @@ public class YandexMainPage {
         this.driver = driver;
         wait = (new WebDriverWait(driver,10));
     }
-    By weatherYandexLocator = By.xpath(".//*[@id='wd-_weather']/div/h1/a[1]" );
+    By weatherYandexLocator = By.xpath("//a[@class='home-link home-link_blue_yes']" );
 
     public YandexWeaterPage openWeaterPage(){
         driver.findElement(weatherYandexLocator).click();
         return new YandexWeaterPage(driver);
     }
-
 }

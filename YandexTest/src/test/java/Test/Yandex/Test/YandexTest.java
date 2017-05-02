@@ -26,6 +26,5 @@ public class YandexTest extends ChromSetting {
         yandexWeater.entanceLoginYandex(email, pasword);
         yandexWeater.returnToMainYandexPage();
     }
-
 }
 

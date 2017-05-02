@@ -18,7 +18,7 @@ public class ChromSetting {
     protected String weaterCheksMoscow = "Москве";
     protected String email = "gostev.test-selenium@yandex.ru";
     protected String pasword = "Ntcn14as12";
-    protected String timeLocator = ".current-weather__today";
+
     @Before
     public void yandexSearch(){
         driver.get("https://yandex.ru/");
